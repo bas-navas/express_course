@@ -12,6 +12,9 @@ app.use(myMiddleware)
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
 
+const authRouter = require('./routes/auth')
+app.use('/auth', authRouter)
+
 // Global Error Handler
 app.use((err, req, res, next) => {
     console.log('เกิด Error', err.message)

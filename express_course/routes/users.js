@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()  // ทำ เอ็กซ์เพรส เราเตอร์
 const db = require('../db')
 const checkAuth = require('../middleware/checkAuth')
+const verifyToken = require('../middleware/verifyToken')
 
-router.get('/', (req, res, next) => {
+router.get('/', verifyToken, (req, res, next) => {
     db.query('SELECT * FROM users', (err, result) => {
         if (err) {
             next(err)
