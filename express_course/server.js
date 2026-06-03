@@ -1,10 +1,12 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const port = process.env.PORT
 const myMiddleware = require('./middleware/myMiddleware')
 
 //Middleware ที่แสดงข้อมูลทุกครั้งที่มี Request เข้ามา
+app.use(cors())
 app.use(express.json())
 app.use(myMiddleware)
 

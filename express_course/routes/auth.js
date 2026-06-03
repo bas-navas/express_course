@@ -17,7 +17,7 @@ router.post('/register', async (req, res, next) => {
 
     // 2. บันทึกลง Database
     const sql = 'INSERT INTO users (name,email,password)VALUES (?,?,?)'
-    db.query(sql, [name, email, password], (err, result) => {
+    db.query(sql, [name, email, hashedPassword], (err, result) => {
         if (err) {
             next(err)
             return
@@ -29,6 +29,11 @@ router.post('/register', async (req, res, next) => {
 // Route Login
 router.post('/login', async (req, res, next) => {
     const { email, password } = req.body
+
+    if (!email || !password) {
+        res.json({ message: 'กรุณากรอก email และ password' })
+        return
+    }
 
     // 1. หา user จาก email
     const sql = 'SELECT * FROM users WHERE email = ?'
