@@ -10,14 +10,14 @@ const jwt = require('jsonwebtoken')
 
 // POST /auth/register
 router.post('/register', async (req, res, next) => {
-    const { name, email, password } = req.body
+    const { name, age, email, password } = req.body
 
     // 1. เข้ารหัส password ก่อนเก็บ
     const hashedPassword = await bcrypt.hash(password, 10)
 
     // 2. บันทึกลง Database
-    const sql = 'INSERT INTO users (name,email,password)VALUES (?,?,?)'
-    db.query(sql, [name, email, hashedPassword], (err, result) => {
+    const sql = 'INSERT INTO users (name,age,email,password)VALUES (?,?,?,?)'
+    db.query(sql, [name,age, email, hashedPassword], (err, result) => {
         if (err) {
             next(err)
             return
