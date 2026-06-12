@@ -44,9 +44,9 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
     const id = Number(req.params.id)
-    const { name, age } = req.body
+    const { name, email, age } = req.body
 
-    db.query('UPDATE users SET name = ?, age = ? WHERE id = ?', [name, age, id], (err, result) => {
+    db.query('UPDATE users SET name = ?, age = ?,email = ? WHERE id = ?', [name, age, email, id], (err, result) => {
         if (err) {
             res.json({ message: 'เกิดข้อผิดพลาด' })
             return
@@ -60,7 +60,7 @@ router.put('/:id', (req, res) => {
     })
 })
 
-router.delete('/:id', checkAuth, (req, res) => {
+router.delete('/:id', (req, res) => {
     const id = Number(req.params.id)
 
     db.query('DELETE FROM users WHERE id = ?', [id], (err, result) => {
